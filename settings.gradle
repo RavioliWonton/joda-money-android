@@ -1,1 +1,2 @@
-include ':library', ':sample'
+rootProject.name = 'jodamoney-android'
+include ':joda-money-android', ':sample'

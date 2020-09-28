@@ -1,18 +1,29 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
-        applicationId 'br.com.concretesolutions.jodamoney.sample'
+        applicationId 'wonton.jodamoney.sample'
+        multiDexEnabled true
         minSdkVersion 9
-        targetSdkVersion 25
+        targetSdkVersion 30
         versionCode 1
         versionName '1.0'
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    compile project(':library')
+    implementation project(':joda-money-android')
+    implementation 'org.joda:joda-convert:2.2.1'
+    implementation 'androidx.annotation:annotation:1.2.0-alpha01'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
 }
