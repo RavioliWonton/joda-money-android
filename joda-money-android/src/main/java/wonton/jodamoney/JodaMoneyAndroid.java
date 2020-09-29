@@ -47,7 +47,6 @@ public class JodaMoneyAndroid {
 
         isInitialized = true;
         applicationContext = context;
-        Log.i("JodaMoneyAndroid", "init: " + CurrencyUnit.registeredCurrencies().size());
         if (CurrencyUnit.registeredCurrencies().size() < 1) {
             Log.e("JodaMoneyAndroid", "Initialization failed");
             isInitialized = false;

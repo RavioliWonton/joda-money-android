@@ -85,6 +85,25 @@ public final class CurrencyUnit implements Comparable<CurrencyUnit>, Serializabl
      */
     private static final ConcurrentMap<String, CurrencyUnit> currenciesByCode = new ConcurrentSkipListMap<>();
     /**
+     * Map of registered currencies by numeric code.
+     */
+    private static final ConcurrentMap<Integer, CurrencyUnit> currenciesByNumericCode = new ConcurrentHashMap<>();
+    /**
+     * Map of registered currencies by country.
+     */
+    private static final ConcurrentMap<String, CurrencyUnit> currenciesByCountry = new ConcurrentSkipListMap<>();
+
+    static {
+        try {
+            new CurrencyUnitDataProvider(JodaMoneyAndroid.applicationContext).registerCurrencies();
+        } catch (RuntimeException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex.toString(), ex);
+        }
+    }
+
+    /**
      * The currency 'USD' - United States Dollar.
      */
     public static final CurrencyUnit USD = of("USD");
@@ -114,24 +133,6 @@ public final class CurrencyUnit implements Comparable<CurrencyUnit>, Serializabl
      * The currency 'CAD' - Canadian Dollar.
      */
     public static final CurrencyUnit CAD = of("CAD");
-    /**
-     * Map of registered currencies by numeric code.
-     */
-    private static final ConcurrentMap<Integer, CurrencyUnit> currenciesByNumericCode = new ConcurrentHashMap<>();
-    /**
-     * Map of registered currencies by country.
-     */
-    private static final ConcurrentMap<String, CurrencyUnit> currenciesByCountry = new ConcurrentSkipListMap<>();
-
-    static {
-        try {
-            new CurrencyUnitDataProvider(JodaMoneyAndroid.applicationContext).registerCurrencies();
-        } catch (RuntimeException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            throw new RuntimeException(ex.toString(), ex);
-        }
-    }
 
     /**
      * The currency code, not null.
