@@ -1,6 +1,7 @@
 Change Log
 ==========
 ## Version 1.0.1-alpha02
+
  **WARNING: THIS IS A NOT-FULLY TESTED VERSION, USE AT YOUR OWN RISK!** 
  * Fix terrible issue about the default CurrencyUnitDataProvider initialization error.
  * Clean up Android Log code.
@@ -17,7 +18,6 @@ Change Log
  * Add Method to use custom file or provider to initialize library.
  * Update code base to Java 8 to take advantage of Stream API and try-with-resources function, also update AGP and dependencies.
  * Improved documentation and more!
-
 
 ## Version 0.12
 
