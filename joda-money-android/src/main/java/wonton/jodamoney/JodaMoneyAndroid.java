@@ -9,8 +9,10 @@ import org.joda.money.BaseCurrencyUnitDataProvider;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.FileCurrencyUnitDataProvider;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
- * Initialization on Android device, must call after
+ * Initialization on Android device, must call init methods after
  * {@code Application.attachBaseContext()}, and cannot be instantiated.
  * Initialization should be done only once, so it is advised that just do
  * it once in {@code Application.onCreate()}.
@@ -25,7 +27,7 @@ public class JodaMoneyAndroid {
     /**
      * Initialization have been done identifier.
      */
-    private static boolean isInitialized = false;
+    private static final AtomicBoolean isInitialized = new AtomicBoolean(false);
 
     /**
      * cannot be instantiated.
@@ -41,15 +43,15 @@ public class JodaMoneyAndroid {
      * @param context Application Context, not null
      */
     public static void init(@NonNull Context context) {
-        if (isInitialized) {
+        if (isInitialized.get()) {
             return;
         }
 
-        isInitialized = true;
+        isInitialized.set(true);
         applicationContext = context;
         if (CurrencyUnit.registeredCurrencies().size() < 1) {
             Log.e("JodaMoneyAndroid", "Initialization failed");
-            isInitialized = false;
+            isInitialized.set(false);
         }
         applicationContext = null;
     }
@@ -63,15 +65,15 @@ public class JodaMoneyAndroid {
      * @param isNecessary whether or not the file is necessary
      */
     public static void init(@NonNull Context context, @NonNull String fileName, boolean isNecessary) {
-        if (isInitialized) {
+        if (isInitialized.get()) {
             return;
         }
 
-        isInitialized = true;
+        isInitialized.set(true);
         applicationContext = context;
         if (CurrencyUnit.registeredCurrencies().size() < 1) {
             Log.e("JodaMoneyAndroid", "Initialization failed");
-            isInitialized = false;
+            isInitialized.set(false);
         }
         try {
             new FileCurrencyUnitDataProvider(applicationContext, fileName).registerCurrencies();
@@ -79,7 +81,7 @@ public class JodaMoneyAndroid {
             if (isNecessary) {
                 Log.e("JodaMoneyAndroid", "Initialization failed");
                 e.printStackTrace();
-                isInitialized = false;
+                isInitialized.set(false);
             }
         }
         applicationContext = null;
@@ -93,22 +95,22 @@ public class JodaMoneyAndroid {
      * @param provider the custom provider, not null
      */
     public static void init(@NonNull Context context, @NonNull BaseCurrencyUnitDataProvider provider) {
-        if (isInitialized) {
+        if (isInitialized.get()) {
             return;
         }
 
-        isInitialized = true;
+        isInitialized.set(true);
         applicationContext = context;
         try {
             provider.registerCurrencies();
             if (CurrencyUnit.registeredCurrencies().size() < 1) {
                 Log.e("JodaMoneyAndroid", "Initialization failed");
-                isInitialized = false;
+                isInitialized.set(false);
             }
         } catch (Exception e) {
             Log.e("JodaMoneyAndroid", "Initialization failed");
             e.printStackTrace();
-            isInitialized = false;
+            isInitialized.set(false);
         }
         applicationContext = null;
     }

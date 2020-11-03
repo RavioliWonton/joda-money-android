@@ -8,7 +8,6 @@ android {
 
     defaultConfig {
         minSdkVersion 9
-        multiDexEnabled true
         consumerProguardFiles 'proguard-rules.pro'
     }
 
@@ -21,7 +20,6 @@ android {
     }
 
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -40,7 +38,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/RavioliWonton/joda-money-android.git'
         version {
-            name = '1.0.1-alpha01'
+            name = '1.0.1-alpha03'
         }
     }
 }
@@ -48,8 +46,6 @@ bintray {
 dependencies {
     implementation 'org.joda:joda-convert:2.2.1'
     implementation 'androidx.annotation:annotation:1.2.0-alpha01'
-    implementation 'androidx.multidex:multidex:2.0.1'
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
 }
 
 task sourcesJar(type: Jar) {
@@ -90,10 +86,10 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'wonton.jodamoney'
                 artifactId = 'joda-money-android'
-                version = '1.0.1-alpha01'
+                version = '1.0.1-alpha03'
 
                 pom.withXml {
-                    def dependenciesNode = asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies')
+                    def dependenciesNode = asNode()['dependencies'][0] ?: asNode().appendNode('dependencies')
 
                     // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
                     configurations.implementation.allDependencies.each {

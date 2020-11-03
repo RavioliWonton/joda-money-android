@@ -1,5 +1,12 @@
 Change Log
 ==========
+## Version 1.0.1-alpha03
+
+ **WARNING: THIS IS A NOT-FULLY TESTED VERSION, USE AT YOUR OWN RISK!** 
+ * Fix ProGuard rule.
+ * Update dependencies.
+ * Multi-threading support in JodaMoneyAndroid.
+
 ## Version 1.0.1-alpha02
 
  **WARNING: THIS IS A NOT-FULLY TESTED VERSION, USE AT YOUR OWN RISK!** 
